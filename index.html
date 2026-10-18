@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#147d52">
+<title>Renda Fácil — ferramentas gratuitas</title>
+<link rel="manifest" href="manifest.json">
+<style>
+:root{--green:#147d52;--dark:#12372a;--bg:#f4f8f5;--card:#fff;--muted:#60736a;--line:#dce8df}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--dark)}
+header{background:linear-gradient(135deg,#147d52,#0c5b3a);color:#fff;padding:24px 18px 30px;border-radius:0 0 26px 26px}
+.wrap{max-width:760px;margin:auto;padding:0 16px}nav{display:flex;align-items:center;justify-content:space-between;gap:12px} .brand{font-size:1.1rem;font-weight:800;letter-spacing:.2px}.pill{border:1px solid #ffffff70;border-radius:999px;padding:7px 11px;font-size:.8rem}
+h1{font-size:2rem;line-height:1.12;margin:24px 0 10px}header p{line-height:1.5;color:#e1f3e8;margin:0;max-width:520px}
+main{padding:20px 0 36px}.notice{font-size:.82rem;color:var(--muted);line-height:1.5;margin:0 0 18px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 3px 12px #153b2510}.icon{font-size:1.5rem}.card h2{font-size:1rem;margin:9px 0 6px}.card p{font-size:.87rem;color:var(--muted);line-height:1.45;margin:0 0 12px}
+button,.btn{background:var(--green);color:white;border:0;border-radius:11px;padding:11px 13px;font:inherit;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;width:100%;text-align:center}
+button.secondary{background:#e6f3eb;color:var(--green)}.section{margin-top:22px}.section h2{font-size:1.2rem}.tool{display:none}.tool.active{display:block}.field{margin:12px 0}.field label{display:block;font-size:.9rem;font-weight:650;margin-bottom:6px}input,textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;font:inherit;background:#fff;color:var(--dark)}.result{background:#e6f3eb;border-radius:12px;padding:13px;margin-top:12px;line-height:1.5;overflow-wrap:anywhere}
+.ad{border:1px dashed #9bb8a5;background:#edf4ef;color:#60736a;border-radius:14px;text-align:center;padding:18px 12px;font-size:.82rem;line-height:1.5;margin:18px 0}.ad strong{display:block;color:#456151;margin-bottom:4px}
+footer{border-top:1px solid var(--line);padding:22px 0;color:var(--muted);font-size:.82rem;line-height:1.6}
+@media(max-width:420px){.grid{grid-template-columns:1fr}h1{font-size:1.8rem}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<nav><div class="brand">🌱 Renda Fácil</div><span class="pill">100% gratuito</span></nav>
+<h1>Pequenas ferramentas.<br>Mais possibilidades.</h1>
+<p>Calculadoras e recursos simples para organizar suas ideias, seu tempo e seu dinheiro.</p>
+</div></header>
+<main class="wrap">
+<p class="notice">Protótipo gratuito em desenvolvimento. Os espaços de publicidade são apenas demonstrações: ainda não exibem anúncios pagos.</p>
+<div class="grid">
+<article class="card"><div class="icon">🧮</div><h2>Calculadora de economia</h2><p>Veja quanto pode guardar ao longo do tempo.</p><button onclick="showTool('savings')">Abrir ferramenta</button></article>
+<article class="card"><div class="icon">📝</div><h2>Gerador de ideias</h2><p>Receba sugestões para começar um projeto sem investimento.</p><button onclick="showTool('ideas')">Ver ideias</button></article>
+<article class="card"><div class="icon">🎯</div><h2>Meta de renda</h2><p>Calcule quanto precisaria ganhar por dia para atingir uma meta.</p><button onclick="showTool('goal')">Calcular meta</button></article>
+<article class="card"><div class="icon">📋</div><h2>Plano de ação</h2><p>Monte uma lista simples para dar o primeiro passo.</p><button onclick="showTool('plan')">Criar plano</button></article>
+</div>
+<div class="ad"><strong>Espaço para anúncio</strong>Quando o site tiver conteúdo suficiente e for aprovado por uma plataforma de anúncios, este espaço poderá ser substituído por um bloco oficial.</div>
+<section id="savings" class="card tool section"><h2>🧮 Calculadora de economia</h2><div class="field"><label for="monthly">Quanto pretende guardar por mês (R$)?</label><input id="monthly" type="number" min="0" step="0.01" value="100"></div><div class="field"><label for="months">Por quantos meses?</label><input id="months" type="number" min="1" max="600" value="12"></div><button onclick="calcSavings()">Calcular</button><div id="savingsResult" class="result" hidden></div></section>
+<section id="ideas" class="card tool section"><h2>📝 Ideias para começar sem investimento</h2><p>Escolha uma área para receber uma sugestão prática.</p><div class="field"><label for="area">Área de interesse</label><select id="area" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;font:inherit"><option value="digital">Serviços digitais</option><option value="conteudo">Conteúdo online</option><option value="local">Serviços locais</option><option value="estudo">Estudo e organização</option></select></div><button onclick="makeIdea()">Gerar sugestão</button><div id="ideaResult" class="result" hidden></div></section>
+<section id="goal" class="card tool section"><h2>🎯 Calculadora de meta</h2><div class="field"><label for="target">Meta mensal desejada (R$)</label><input id="target" type="number" min="0" step="0.01" value="500"></div><div class="field"><label for="days">Dias de trabalho por mês</label><input id="days" type="number" min="1" max="31" value="20"></div><button onclick="calcGoal()">Calcular</button><div id="goalResult" class="result" hidden></div></section>
+<section id="plan" class="card tool section"><h2>📋 Meu plano de ação</h2><p>Escreva três passos pequenos que pode realizar esta semana.</p><div class="field"><label for="step1">Passo 1</label><input id="step1" placeholder="Ex.: escolher um tema"></div><div class="field"><label for="step2">Passo 2</label><input id="step2" placeholder="Ex.: criar uma página útil"></div><div class="field"><label for="step3">Passo 3</label><input id="step3" placeholder="Ex.: compartilhar com amigos"></div><button onclick="savePlan()">Salvar plano neste aparelho</button><div id="planResult" class="result" hidden></div></section>
+<div class="ad"><strong>Mais conteúdo em breve</strong>Publique guias originais e úteis antes de solicitar aprovação para publicidade.</div>
+<section class="section"><h2>Como funciona a renda com anúncios?</h2><p style="color:var(--muted);line-height:1.6">O site pode tentar monetizar quando tiver conteúdo original, navegação clara e visitantes reais. A aprovação não é automática e depende da plataforma escolhida. Nunca clique nos próprios anúncios nem peça que outras pessoas cliquem para ajudar.</p></section>
+</main>
+<footer><div class="wrap">Renda Fácil • Protótipo demonstrativo gratuito.<br>Este site não promete ganhos, não recolhe pagamentos e não solicita dados bancários. Os cálculos são estimativas educativas.</div></footer>
+<script>
+function showTool(id){document.querySelectorAll('.tool').forEach(x=>x.classList.remove('active'));const el=document.getElementById(id);el.classList.add('active');el.scrollIntoView({behavior:'smooth',block:'start'})}
+function money(n){return n.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
+function calcSavings(){let m=Number(document.getElementById('monthly').value),t=Number(document.getElementById('months').value);if(m<0||t<1||!Number.isFinite(m)||!Number.isFinite(t)){alert('Informe valores válidos.');return}let r=document.getElementById('savingsResult');r.hidden=false;r.textContent='Sem considerar juros, você juntaria '+money(m*t)+' em '+t+' meses.'}
+const ideas={digital:'Ofereça um serviço simples, como revisar textos, organizar planilhas ou criar artes com ferramentas gratuitas. Monte 2 exemplos e apresente seu trabalho a possíveis clientes.',conteudo:'Escolha um tema que conheça, publique dicas originais com regularidade e construa uma audiência antes de tentar monetizar com anúncios.',local:'Ofereça um serviço próximo de você, como ajudar com organização, pequenos recados ou aulas de algo que saiba fazer. Combine preço e condições com clareza.',estudo:'Crie modelos gratuitos de checklist, cronograma ou fichas de estudo. Compartilhe conteúdo original e veja quais recursos as pessoas mais usam.'};
+function makeIdea(){let r=document.getElementById('ideaResult');r.hidden=false;r.textContent=ideas[document.getElementById('area').value]}
+function calcGoal(){let t=Number(document.getElementById('target').value),d=Number(document.getElementById('days').value);if(t<0||d<1||!Number.isFinite(t)||!Number.isFinite(d)){alert('Informe valores válidos.');return}let r=document.getElementById('goalResult');r.hidden=false;r.textContent='Para alcançar '+money(t)+', seria necessário obter em média '+money(t/d)+' por dia de trabalho. É uma meta de planejamento, não uma promessa de renda.'}
+function savePlan(){let vals=[1,2,3].map(i=>document.getElementById('step'+i).value.trim());if(vals.every(x=>!x)){alert('Escreva pelo menos um passo.');return}try{localStorage.setItem('rendaFacilPlano',JSON.stringify(vals))}catch(e){}let r=document.getElementById('planResult');r.hidden=false;r.textContent='Plano deste aparelho: '+vals.filter(Boolean).join(' • ')}
+try{const p=JSON.parse(localStorage.getItem('rendaFacilPlano')||'null');if(p)p.forEach((v,i)=>{if(v)document.getElementById('step'+(i+1)).value=v})}catch(e){}
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+</script>
+</body></html>
